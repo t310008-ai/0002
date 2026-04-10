@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高中學習歷程檔案 | 專業版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap');
+        
+        :root {
+            --morandi-bg: #F4F1EE;
+            --morandi-text: #4A4E69;
+            --collego-primary: #5E718B;
+            --footer-bg: #2D3142; /* 深色頁尾 */
+        }
+
+        body { 
+            font-family: 'Noto Sans TC', sans-serif; 
+            background-color: var(--morandi-bg); 
+            color: var(--morandi-text);
+            overflow-x: hidden; 
+        }
+
+        /* 下拉選單 */
+        .dropdown-menu {
+            display: none;
+            padding-top: 20px; 
+            top: 100%;
+            margin-top: -15px;
+        }
+        .group:hover .dropdown-menu { display: block; }
+
+        .collego-card {
+            background: #FFFFFF;
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .collego-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .content-section { display: none; opacity: 0; }
+        .active-section { display: block; opacity: 1; }
+
+        /* 箭頭跳動動畫 */
+        .arrow-bounce { animation: bounce-arrow 2s infinite; }
+        @keyframes bounce-arrow {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(10px);}
+            60% {transform: translateY(5px);}
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="fixed top-0 w-full bg-white/95 border-b border-gray-200 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-2 cursor-pointer" onclick="showSection('home')">
+                <div class="w-8 h-8 bg-[#5E718B] rounded-lg shadow-inner"></div>
+                <span class="text-xl font-bold text-[#4A4E69] tracking-tighter">高中學習歷程</span>
+            </div>
+            
+            <ul class="flex space-x-10">
+                <li><a onclick="showSection('home')" class="cursor-pointer font-medium text-gray-500 hover:text-[#5E718B] transition">首頁</a></li>
+                <li class="relative group">
+                    <a class="cursor-pointer font-medium text-gray-500 hover:text-[#5E718B] transition flex items-center h-20">
+                        科目分類 <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <div class="dropdown-menu absolute -right-10 w-[450px]">
+                        <div class="bg-white shadow-xl rounded-xl border border-gray-100 p-6 grid grid-cols-3 gap-3 text-sm">
+                            <a onclick="showSection('chinese')" class="p-2 hover:bg-gray-50 rounded text-center cursor-pointer">國文</a>
+                            <a onclick="showSection('english')" class="p-2 hover:bg-gray-50 rounded text-center cursor-pointer">英文</a>
+                            <a onclick="showSection('math')" class="p-2 hover:bg-gray-50 rounded text-center cursor-pointer">數學</a>
+                            <a onclick="showSection('physics')" class="p-2 hover:bg-gray-50 rounded text-center cursor-pointer">物理</a>
+                            <a onclick="showSection('chemistry')" class="p-2 hover:bg-gray-50 rounded text-center cursor-pointer">化學</a>
+                            <a onclick="showSection('biology')" class="p-2 hover:bg-gray-50 rounded text-center cursor-pointer">生物</a>
+                            <a onclick="showSection('geography')" class="p-2 hover:bg-gray-50 rounded text-center cursor-pointer">地理</a>
+                            <a onclick="showSection('history')" class="p-2 hover:bg-gray-50 rounded text-center cursor-pointer">歷史</a>
+                            <a onclick="showSection('civics')" class="p-2 hover:bg-gray-50 rounded text-center cursor-pointer">公民</a>
+                            <a onclick="showSection('elective')" class="p-3 bg-[#F4F1EE] text-[#5E718B] font-bold rounded text-center col-span-3 cursor-pointer hover:bg-[#EAE5E0]">選修科目成果</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="pt-20">
+        <section id="home" class="content-section active-section">
+            <div class="min-h-[85vh] flex flex-col justify-center items-center text-center px-6">
+                <span class="text-sm font-bold tracking-[0.3em] text-[#8E9AAF] mb-4 uppercase">Senior High School Portfolio</span>
+                <h1 id="hero-title" class="text-5xl md:text-6xl font-bold text-[#4A4E69] leading-tight mb-8">
+                    在知識中深耕，<br><span class="text-[#5E718B]">看見成長的維度</span>
+                </h1>
+                
+                <div class="mt-10 flex flex-col items-center">
+                    <p class="text-sm font-bold tracking-widest text-[#5E718B] mb-3">個人介紹</p>
+                    <div class="arrow-bounce">
+                        <svg class="w-6 h-6 text-[#5E718B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7-7-7m14-8l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div id="intro-content" class="max-w-5xl mx-auto px-6 py-24">
+                <div class="grid md:grid-cols-12 gap-12 items-start">
+                    <div class="md:col-span-5">
+                        <h2 class="text-4xl font-bold text-[#4A4E69] mb-6">關於我<br><small class="text-xl text-[#9A8C98]">Introduction</small></h2>
+                        <div class="w-16 h-1 bg-[#5E718B] mb-8"></div>
+                    </div>
+                    <div class="md:col-span-7 space-y-6 text-lg leading-relaxed text-[#6B7280]">
+                        <p>我是 <span class="text-[#4A4E69] font-bold">[你的姓名]</span>，就讀於 [你的學校]。</p>
+                        <p>高中三年的時光中，我不斷探索自我發展的可能性。對我而言，學習歷程不僅是成績的累積，更是心態與能力的淬鍊。透過各項專題實作，我學會了如何定義問題並系統化尋找解決方案。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="subject-container"></div>
+    </main>
+
+    <footer class="bg-[#2D3142] text-white pt-16 pb-8 mt-20">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-gray-600 pb-12">
+            <div class="md:col-span-2">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 bg-[#5E718B] rounded-lg"></div>
+                    <span class="text-2xl font-bold tracking-tight">高中學習歷程檔案</span>
+                </div>
+                <p class="text-gray-400 max-w-sm leading-relaxed">
+                    本網站致力於展現個人在高中三年的學術成長、多元表現與自主學習成果，作為申請入學之重要參考。
+                </p>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold mb-6 text-[#8E9AAF]">快速連結</h4>
+                <ul class="space-y-3 text-gray-400">
+                    <li><a href="#" onclick="showSection('home')" class="hover:text-white transition">回首頁</a></li>
+                    <li><a href="#" onclick="showSection('chinese')" class="hover:text-white transition">學科成果</a></li>
+                    <li><a href="#" onclick="showSection('elective')" class="hover:text-white transition">多元表現</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold mb-6 text-[#8E9AAF]">聯絡資訊</h4>
+                <ul class="space-y-3 text-gray-400">
+                    <li>Email: [你的信箱]</li>
+                    <li>School: [你的就讀學校]</li>
+                    <li>Location: Taiwan</li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 mt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+            <p>© 2026 [你的姓名] 版權所有. 個人學習歷程專用.</p>
+            <p class="mt-4 md:mt-0 italic">Designed with GSAP Animation & Tailwind CSS</p>
+        </div>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        const subjects = [
+            { id: 'chinese', name: '國文' },
+            { id: 'english', name: '英文' },
+            { id: 'math', name: '數學' },
+            { id: 'physics', name: '物理' },
+            { id: 'chemistry', name: '化學' },
+            { id: 'biology', name: '生物' },
+            { id: 'geography', name: '地理' },
+            { id: 'history', name: '歷史' },
+            { id: 'civics', name: '公民' },
+            { id: 'elective', name: '選修科目' }
+        ];
+
+        const container = document.getElementById('subject-container');
+        subjects.forEach(sub => {
+            const section = document.createElement('section');
+            section.id = sub.id;
+            section.className = 'content-section max-w-6xl mx-auto px-6 py-20 min-h-[60vh]';
+            section.innerHTML = `
+                <div class="mb-16">
+                    <h2 class="text-3xl font-bold text-[#4A4E69] inline-block border-b-4 border-[#5E718B] pb-2">${sub.name} 學習成果</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="collego-card p-8">
+                        <div class="text-xs font-bold text-[#8E9AAF] mb-2">高一 GRADE 10</div>
+                        <h3 class="text-xl font-bold text-[#4A4E69] mb-4">基礎學習紀錄</h3>
+                        <p class="text-sm text-gray-500 mb-8 leading-relaxed">此處放置高一時期在${sub.name}科目的成果描述。</p>
+                        <a href="#" class="inline-block px-6 py-2 border border-[#5E718B] text-[#5E718B] rounded-full text-sm font-medium hover:bg-[#5E718B] hover:text-white transition">檢視檔案</a>
+                    </div>
+                    <div class="collego-card p-8">
+                        <div class="text-xs font-bold text-[#8E9AAF] mb-2">高二 GRADE 11</div>
+                        <h3 class="text-xl font-bold text-[#4A4E69] mb-4">核心學科發展</h3>
+                        <p class="text-sm text-gray-500 mb-8 leading-relaxed">此處放置高二時期在${sub.name}科目的專題研究。</p>
+                        <a href="#" class="inline-block px-6 py-2 border border-[#5E718B] text-[#5E718B] rounded-full text-sm font-medium hover:bg-[#5E718B] hover:text-white transition">檢視檔案</a>
+                    </div>
+                    <div class="collego-card p-8">
+                        <div class="text-xs font-bold text-[#8E9AAF] mb-2">高三 GRADE 12</div>
+                        <h3 class="text-xl font-bold text-[#4A4E69] mb-4">綜合應用成果</h3>
+                        <p class="text-sm text-gray-500 mb-8 leading-relaxed">此處放置高三時期${sub.name}相關的綜合整理。</p>
+                        <a href="#" class="inline-block px-6 py-2 border border-[#5E718B] text-[#5E718B] rounded-full text-sm font-medium hover:bg-[#5E718B] hover:text-white transition">檢視檔案</a>
+                    </div>
+                </div>
+            `;
+            container.appendChild(section);
+        });
+
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(s => s.classList.remove('active-section'));
+
+            const target = document.getElementById(sectionId);
+            if (target) {
+                target.classList.add('active-section');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                gsap.fromTo(target, 
+                    { opacity: 0, y: 30 }, 
+                    { duration: 0.8, opacity: 1, y: 0, ease: "back.out(1.2)" }
+                );
+            }
+        }
+
+        window.onload = () => {
+            gsap.from("#hero-title", { duration: 1.5, y: 40, opacity: 0, ease: "power2.out" });
+            gsap.from("#intro-content", {
+                scrollTrigger: { trigger: "#intro-content", start: "top 80%" },
+                duration: 1.2, y: 60, opacity: 0, ease: "expo.out"
+            });
+        };
+    </script>
+</body>
+</html>
